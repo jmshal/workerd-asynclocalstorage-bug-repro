@@ -1,12 +1,11 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 
 const store = new AsyncLocalStorage();
-const cache = {};
 
 export default {
   fetch() {
     const outerValue = crypto.randomUUID();
-    cache[outerValue] = `value doesn't matter here`;
+    ({ [outerValue]: `value doesn't matter here` });
     return store.run(outerValue, () => {
       try {
         for (let i = 0; i < 1_000; i++) {
